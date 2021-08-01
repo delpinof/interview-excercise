@@ -11,15 +11,12 @@ import org.mockito.Mockito;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
-import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.web.servlet.MockMvc;
-import org.springframework.test.web.servlet.ResultActions;
 
 import java.time.LocalDate;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -27,7 +24,6 @@ import static com.improving.interviewexcercise.api.ReservationApiConstants.RESER
 import static com.improving.interviewexcercise.api.ReservationApiConstants.RESERVATION_GET_ALL;
 import static com.improving.interviewexcercise.api.ReservationApiConstants.RESERVATION_GET_BY_ID;
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.assertj.core.api.Assertions.registerCustomDateFormat;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
@@ -48,10 +44,6 @@ public class ReservationControllerTest {
 
     @Test
     public void testGetSuccess() throws Exception {
-
-        final int ID = 1;
-        final String RESERVATION = "hotel reservation";
-        final LocalDate TIME = LocalDate.now();
 
         final int ID = 1;
         final String RESERVATION = "hotel reservation";
