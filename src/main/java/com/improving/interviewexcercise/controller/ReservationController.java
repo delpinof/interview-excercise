@@ -13,9 +13,12 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 import static com.improving.interviewexcercise.api.ReservationApiConstants.RESERVATION_BASE_PATH;
+import static com.improving.interviewexcercise.api.ReservationApiConstants.RESERVATION_GET_ALL;
 import static com.improving.interviewexcercise.api.ReservationApiConstants.RESERVATION_GET_BY_ID;
 
 @Slf4j
@@ -39,5 +42,16 @@ public class ReservationController {
             optionalReservation = Optional.of(modelMapper.map(optionalReservationEntity.get(), Reservation.class));
         log.debug("reservationEvent=getReservation, reservation={}", optionalReservation);
         return ResponseEntity.of(optionalReservation);
+    }
+
+    @GetMapping(RESERVATION_GET_ALL)
+    @ResponseBody
+    public ResponseEntity<List<Reservation>> getAll() {
+        log.info("reservationEvent=getAllReservations");
+        List<Reservation> reservationList = service.getAllReservations().stream()
+                .map(element -> modelMapper.map(element, Reservation.class))
+                .collect(Collectors.toList());
+        log.debug("reservationEvent=getAllReservations, reservations={}", reservationList);
+        return ResponseEntity.ok(reservationList);
     }
 }
