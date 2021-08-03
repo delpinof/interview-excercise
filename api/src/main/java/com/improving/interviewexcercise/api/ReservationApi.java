@@ -8,11 +8,11 @@ public interface ReservationApi {
 
     ResponseEntity<Reservation> get(int id);
 
-    ResponseEntity<List<Reservation>> getAll();
+    List<Reservation> getAll();
 
-    ResponseEntity<Reservation> create(Reservation reservation);
+    Reservation create(Reservation reservation);
 
-    ResponseEntity<Reservation> update(int id, Reservation reservation);
+    Reservation update(int id, Reservation reservation);
 
     ResponseEntity<String> delete(int id);
 }

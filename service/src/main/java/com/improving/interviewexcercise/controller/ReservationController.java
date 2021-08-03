@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import java.util.List;
 import java.util.Optional;
@@ -52,31 +53,34 @@ public class ReservationController implements ReservationApi {
     }
 
     @GetMapping(RESERVATION_GET_ALL)
-    public ResponseEntity<List<Reservation>> getAll() {
+    @ResponseBody
+    public List<Reservation> getAll() {
         log.info("reservationEvent=getAllReservations");
         List<Reservation> reservationList = service.getAllReservations().stream()
                 .map(element -> modelMapper.map(element, Reservation.class))
                 .collect(Collectors.toList());
         log.debug("reservationEvent=getAllReservations, reservations={}", reservationList);
-        return ResponseEntity.ok(reservationList);
+        return reservationList;
     }
 
     @PostMapping
-    public ResponseEntity<Reservation> create(@RequestBody Reservation reservation) {
+    @ResponseBody
+    public Reservation create(@RequestBody Reservation reservation) {
         log.info("reservationEvent=createReservation");
         ReservationEntity reservationSaved = service.createReservation(modelMapper.map(reservation, ReservationEntity.class));
         log.debug("reservationEvent=reservationSaved, reservation={}", reservationSaved);
-        return ResponseEntity.ok(modelMapper.map(reservationSaved, Reservation.class));
+        return modelMapper.map(reservationSaved, Reservation.class);
     }
 
     @PutMapping(RESERVATION_BY_ID)
-    public ResponseEntity<Reservation> update(@PathVariable int id, @RequestBody Reservation reservation) {
+    @ResponseBody
+    public Reservation update(@PathVariable int id, @RequestBody Reservation reservation) {
         log.info("reservationEvent=updateReservation");
         ReservationEntity reservationEntity = modelMapper.map(reservation, ReservationEntity.class);
         reservationEntity.setId(id);
         reservationEntity = service.updateReservation(reservationEntity);
         log.debug("reservationEvent=reservationSaved, reservation={}", reservationEntity);
-        return ResponseEntity.ok(modelMapper.map(reservationEntity, Reservation.class));
+        return modelMapper.map(reservationEntity, Reservation.class);
     }
 
     @DeleteMapping(RESERVATION_BY_ID)
