@@ -1,6 +1,7 @@
 package com.improving.interviewexcercise.controller;
 
 import com.improving.interviewexcercise.api.Reservation;
+import com.improving.interviewexcercise.api.ReservationApi;
 import com.improving.interviewexcercise.dao.ReservationEntity;
 import com.improving.interviewexcercise.service.ReservationNotFoundException;
 import com.improving.interviewexcercise.service.ReservationService;
@@ -31,7 +32,7 @@ import static com.improving.interviewexcercise.api.ReservationApiConstants.RESER
 @Slf4j
 @Controller
 @RequestMapping(RESERVATION_BASE_PATH)
-public class ReservationController {
+public class ReservationController implements ReservationApi {
 
     @Autowired
     private ReservationService service;
